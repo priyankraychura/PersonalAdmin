@@ -28,7 +28,7 @@ const VerifyEmailPage = () => {
             };
 
             try {
-                const response = await axios.post(`http://localhost:1008/api/v1/admin/verify-email`, { token }, config);
+                const response = await axios.post(`https://api.priyank.space/api/v1/admin/verify-email`, { token }, config);
                 const updatedUser = response.data.user;
                 setMessage(response.data.msg);
                 dispatch(login(updatedUser));

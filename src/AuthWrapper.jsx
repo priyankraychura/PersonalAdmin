@@ -31,7 +31,7 @@ const AuthWrapper = () => {
                             'Authorization': token
                         }
                     };
-                    const response = await axios.get('http://localhost:1008/api/v1/admin/profile', config);
+                    const response = await axios.get('https://api.priyank.space/api/v1/admin/profile', config);
                     dispatch(login(response.data.user));
                 } catch (error) {
                     console.error('Failed to fetch user data:', error);

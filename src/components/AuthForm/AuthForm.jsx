@@ -67,7 +67,7 @@ const AuthForm = () => {
         }
       };
 
-      axios.post('http://localhost:1008/api/v1/client/login', {
+      axios.post('https://api.priyank.space/api/v1/client/login', {
         email,
         password,
       }, config)

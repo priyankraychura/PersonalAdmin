@@ -57,7 +57,7 @@ const ProfileEditForm = () => {
   };
 
   const handleVerifyClick = () => {
-    axios.post('http://localhost:1008/api/v1/admin/send-email', { email: formData.email }, config)
+    axios.post('https://api.priyank.space/api/v1/admin/send-email', { email: formData.email }, config)
       .then((response) => {
         console.log(response);
         setMessage("Verification email sent!");
@@ -168,7 +168,7 @@ const ProfileEditForm = () => {
 
     console.log("Dispatching final user data:", finalUserData);
 
-    await axios.post('http://localhost:1008/api/v1/admin/update-profile', finalUserData, config)
+    await axios.post('https://api.priyank.space/api/v1/admin/update-profile', finalUserData, config)
       .then((user) => {
         console.log("🚀 ~ handleSubmit ~ user:", user)
         dispatch(login(finalUserData));
