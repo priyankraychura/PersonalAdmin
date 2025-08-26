@@ -1,0 +1,38 @@
+.content-card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 1.5rem;
+}
+
+
+.lottie-animation {
+	width: 300px;
+	height: 300px;
+	margin: 0 auto 2rem;
+}
+
+.main-title {
+	font-size: 3rem;
+	font-weight: 700;
+	color: #1a202c;
+	margin-top: 0;
+	margin-bottom: 1rem;
+}
+
+.page-text {
+	font-size: 1.125rem;
+	color: #4a5568;
+	line-height: 1.6;
+	margin-bottom: 0;
+}
+
+.loading-message {
+	font-size: 1rem;
+	color: #718096;
+	font-style: italic;
+	height: 300px; /* Match Lottie container height */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

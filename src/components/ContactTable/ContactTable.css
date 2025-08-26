@@ -1,0 +1,101 @@
+/* Updated Contact Table Styles */
+.contact-table-container {
+	flex-grow: 1;
+}
+
+.contact-table-title {
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: #1f2937;
+	margin-bottom: 1.5rem;
+	margin-top: 0;
+}
+
+/* Loading Spinner Styles */
+.loading-spinner-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 200px;
+}
+
+.table-wrapper {
+	background-color: var(--card-bg);
+	border-radius: 0.75rem;
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+		0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	overflow: hidden;
+	width: 100%;
+}
+
+.modern-table {
+	border-collapse: collapse;
+	font-size: 0.9rem;
+	color: #374151;
+	table-layout: fixed;
+}
+
+.modern-table thead tr {
+	background-color: #f9fafb;
+}
+
+.modern-table th {
+	font-weight: 600;
+	color: #4b5563;
+	padding: 1rem;
+	text-align: left;
+}
+
+.th-srno {
+	width: 5%;
+}
+
+.th-name {
+	width: 15%;
+}
+
+.th-email {
+	width: 20%;
+}
+
+.th-message {
+	width: auto;
+}
+
+.th-status {
+	width: 15%;
+}
+
+.modern-table td {
+	padding: 1rem;
+	border-bottom: 1px solid #e5e7eb;
+	word-wrap: break-word;
+}
+
+.modern-table tbody tr:last-child td {
+	border-bottom: none;
+}
+
+.modern-table tbody tr:hover {
+	background-color: #f3f4f6;
+}
+
+.status-dropdown-modern {
+	border: 1px solid #d1d5db;
+	border-radius: 0.5rem;
+	padding: 0.5rem 0.75rem;
+	font-size: 0.9rem;
+	background-color: #fff;
+	cursor: pointer;
+	outline: none;
+	transition: all 0.2s ease-in-out;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.status-dropdown-modern:hover {
+	border-color: #9ca3af;
+}
+.status-dropdown-modern:focus {
+	border-color: #6366f1;
+	box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+}

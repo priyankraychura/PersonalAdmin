@@ -1,0 +1,40 @@
+/* Navbar Styles */
+.navbar {
+	background-color: var(--card-bg);
+	box-shadow: var(--shadow);
+	/* padding: 1rem 2rem; */
+	padding-left: 1rem;
+	padding-right: 1rem;
+	/* border-bottom-left-radius: 1rem; */
+	/* border-bottom-right-radius: 1rem; */
+	border-radius: 1rem;
+	margin: 1rem;
+	margin-bottom: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	z-index: 10;
+}
+
+.navbar-greeting {
+	font-size: 1.3rem;
+	font-weight: 600;
+	color: #1f2937;
+}
+
+.navbar-profile-container {
+	display: flex;
+	align-items: center;
+}
+
+.navbar-profile-icon,
+.nav-profile {
+	height: 2.3rem;
+	width: 2.3rem;
+	background-color: #e5e7eb;
+	border-radius: 9999px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #4b5563;
+}
