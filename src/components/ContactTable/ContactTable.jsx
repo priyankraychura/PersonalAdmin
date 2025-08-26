@@ -1,9 +1,9 @@
 import axios from "axios";
 import { use, useEffect, useState } from "react";
 import { BounceLoader } from "react-spinners";
-import './contactTable.css'
 import { useDispatch } from "react-redux";
 import { logout } from "../../features/user/userSlice";
+import './contactTable.css'
 
 const ContactTable = () => {
   const [contacts, setContacts] = useState([]);
