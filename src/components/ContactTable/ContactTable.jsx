@@ -3,7 +3,7 @@ import { use, useEffect, useState } from "react";
 import { BounceLoader } from "react-spinners";
 import { useDispatch } from "react-redux";
 import { logout } from "../../features/user/userSlice";
-import './contactTable.css'
+import './ContactTable.css'
 
 const ContactTable = () => {
   const [contacts, setContacts] = useState([]);
