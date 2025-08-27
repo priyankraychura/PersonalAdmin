@@ -133,7 +133,7 @@ const ProfileEditForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsUploading(true)
     let finalUserData = { ...formData };
 
     // --- CORRECTED LOGIC ---
@@ -172,6 +172,7 @@ const ProfileEditForm = () => {
       .then((user) => {
         console.log("🚀 ~ handleSubmit ~ user:", user)
         dispatch(login(finalUserData));
+        setIsUploading(false)
       })
       .catch((err) => {
         console.log(err);
@@ -227,6 +228,7 @@ const ProfileEditForm = () => {
                       onChange={handleChange}
                       className="form-input"
                       required
+                      disabled={isUploading}
                     />
                   </div>
                   <div className="form-group">
@@ -267,6 +269,7 @@ const ProfileEditForm = () => {
                     value={formData.dob}
                     onChange={handleChange}
                     className="form-input"
+                    disabled={isUploading}
                   />
                 </div>
                 <div className="form-group">
@@ -276,6 +279,7 @@ const ProfileEditForm = () => {
                     value={formData.gender}
                     onChange={handleChange}
                     className="form-input"
+                    disabled={isUploading}
                   >
                     <option value="">Select Gender</option>
                     <option value="Male">Male</option>
@@ -291,6 +295,7 @@ const ProfileEditForm = () => {
                     value={formData.mobile}
                     onChange={handleChange}
                     className="form-input"
+                    disabled={isUploading}
                   />
                 </div>
                 <div className="form-group">
@@ -301,6 +306,7 @@ const ProfileEditForm = () => {
                     value={formData.city}
                     onChange={handleChange}
                     className="form-input"
+                    disabled={isUploading}
                   />
                 </div>
                 <div className="form-group">
@@ -311,6 +317,7 @@ const ProfileEditForm = () => {
                     value={formData.pincode}
                     onChange={handleChange}
                     className="form-input"
+                    disabled={isUploading}
                   />
                 </div>
                 <div className="form-group">
@@ -321,6 +328,7 @@ const ProfileEditForm = () => {
                     value={formData.designation}
                     onChange={handleChange}
                     className="form-input"
+                    disabled={isUploading}
                   />
                 </div>
               </div>
@@ -331,7 +339,7 @@ const ProfileEditForm = () => {
               <div className="form-actions">
                 {/* The submit button is now part of the form */}
                 <button type="submit" className="save-button" disabled={isUploading}>
-                  {isUploading ? 'Uploading...' : 'Save Changes'}
+                  {isUploading ? 'Updating...' : 'Save Changes'}
                 </button>
                 <button type="button" onClick={() => setIsOpen(false)} className="cancel-button">
                   Cancel

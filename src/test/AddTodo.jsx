@@ -2,16 +2,11 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { addTodo } from '../features/todo/todoSlice'
 import { useState } from 'react'
-import { login } from '../features/user/userSlice'
 
 
 const AddTodo = () => {
     const [input, setInput] = useState('')
     const [todos, setTodos] = useState([])
-    const user = {
-            name: 'John Doe',
-            email: 'john.mclean@examplepetstore.com'
-        }
 
     const dispatch = useDispatch()
 
@@ -20,8 +15,6 @@ const AddTodo = () => {
 
         dispatch(addTodo(input))
         setInput('')
-
-        dispatch(login(user))
     }
 
     return (
