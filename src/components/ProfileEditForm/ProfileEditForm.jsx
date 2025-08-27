@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../features/user/userSlice';
 import axios from 'axios';
 import './ProfileEditForm.css'
+import toast from 'react-hot-toast';
 
 // --- Mock Redux setup for demonstration ---
 // This allows the component to run standalone.
@@ -57,15 +58,25 @@ const ProfileEditForm = () => {
   };
 
   const handleVerifyClick = () => {
-    axios.post('https://api.priyank.space/api/v1/admin/send-email', { email: formData.email }, config)
-      .then((response) => {
-        console.log(response);
-        setMessage("Verification email sent!");
-      })
-      .catch((err) => {
-        console.log(err);
-        setMessage("Could not send verification email.");
-      })
+    const sentMailPromise = axios.post('https://api.priyank.space/api/v1/admin/send-email', { email: formData.email }, config)
+    // .then((response) => {
+    //   console.log(response);
+    //   setMessage("Verification email sent!");
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    //   setMessage("Could not send verification email.");
+    // })
+
+    toast.promise(sentMailPromise, {
+      loading: 'Sending email...',
+      success: (response) => {
+        return <b>Verification email sent!</b>;
+      },
+      error: (error) => {
+        return <b>{error.response?.data?.msg || 'Could not send verification email.'}</b>;
+      }
+    });
   };
 
   const handleChange = (e) => {
@@ -82,20 +93,16 @@ const ProfileEditForm = () => {
     }
   };
 
-  // console.log(formData.profilePath)
-
   const handleImageButtonClick = () => {
     fileInputRef.current.click();
   };
 
   const handleUpload = async () => {
     if (!file) {
-      // This case should ideally not be hit if called from handleSubmit correctly
       setMessage('Please select an image to upload.');
       return null;
     }
 
-    setIsUploading(true);
     setMessage('Uploading image...');
     const data = new FormData();
     data.append('file', file);
@@ -115,20 +122,19 @@ const ProfileEditForm = () => {
         const imageUrl = result.secure_url;
         const publicId = result.public_id;
         setMessage(`Image uploaded successfully!`);
-        // console.log('Image URL:', imageUrl, publicId);
         return { imageUrl, publicId };
       } else {
         setMessage('Upload failed. Please try again.');
         console.error('Upload failed:', await response.text());
+        setIsUploading(false);
         return null;
       }
     } catch (error) {
       setMessage('An error occurred during upload.');
       console.error('API call error:', error);
-      return null;
-    } finally {
       setIsUploading(false);
-    }
+      return null;
+    } 
   };
 
   const handleSubmit = async (e) => {
@@ -166,17 +172,19 @@ const ProfileEditForm = () => {
       }
     }
 
-    console.log("Dispatching final user data:", finalUserData);
 
     await axios.post('https://api.priyank.space/api/v1/admin/update-profile', finalUserData, config)
       .then((user) => {
-        console.log("🚀 ~ handleSubmit ~ user:", user)
         dispatch(login(finalUserData));
         setIsUploading(false)
+        toast.success('Profile updated successfully!')
       })
       .catch((err) => {
         console.log(err);
-        setMessage("Could not update profile because of an error.");
+        toast.error("Could not update profile because of an error.")
+      })
+      .finally(() => {
+        setIsUploading(false)
       })
 
     setIsOpen(false); // Close modal on successful submission

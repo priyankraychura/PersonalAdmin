@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast';
 
 const initialState = {
     isLoggedIn: false,
@@ -18,6 +18,7 @@ export const userSlice = createSlice({
             localStorage.removeItem('token');
             state.isLoggedIn = false;
             state.userData = null;
+            toast.success('Logged out successfully')
         },
     },
 });

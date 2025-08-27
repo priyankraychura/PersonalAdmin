@@ -6,11 +6,7 @@ const Todos = () => {
     const todos = useSelector(state => state.todoReducer.todos)
     const user = useSelector(state => state.userReducer.userData)
 
-
-    const dispatch = useDispatch()
-
-    console.log(user);
-    
+    const dispatch = useDispatch()    
 
     return (
         <div>

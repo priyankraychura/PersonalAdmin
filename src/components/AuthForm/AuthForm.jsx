@@ -5,6 +5,7 @@ import { BeatLoader } from "react-spinners";
 import "./AuthForm.css";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/user/userSlice";
+import toast from "react-hot-toast";
 
 const AuthForm = () => {
 
@@ -12,22 +13,18 @@ const AuthForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const disptach = useDispatch()
+  const dispatch = useDispatch()
 
   // Handles form submission for both login and registration.
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true)
-    setError('');
-    setMessage('');
 
     if (isRegistering) {
       if (email === '' || password === '') {
-        setError("Please fill in all fields.");
+        toast.error("Please fill in all fields.")
         return;
       }
 
@@ -37,27 +34,42 @@ const AuthForm = () => {
         }
       };
 
-      axios.post('https://api.priyank.space/api/v1/client/register', {
+      const registerPromise = axios.post('https://api.priyank.space/api/v1/client/register', {
         name,
         email,
         password,
       }, config)
-        .then((response) => {
-          console.log(response);
-          setIsLoading(false);
-          setIsRegistering(false);
-          // setMessage('Registration successful! Redirecting to login...');
-        })
-        .catch((error) => {
-          console.error('Registration error:', error);
-          setError(error.response.data.msg)
-          setIsLoading(false)
-        });
+      // .then((response) => {
+      //   console.log(response);
+      //   setIsLoading(false);
+      //   setIsRegistering(false);
+      //   // setMessage('Registration successful! Redirecting to login...');
+      // })
+      // .catch((error) => {
+      //   console.error('Registration error:', error);
+      //   setError(error.response.data.msg)
+      //   setIsLoading(false)
+      // });
 
-      console.log('Registering with:', { email, password });
+
+      toast.promise(registerPromise, {
+        loading: 'Creating your account...',
+        success: (response) => {
+          setIsRegistering(false); // Switch to login form on success
+          setIsLoading(false);
+          return <b>Account created! Please log in.</b>;
+        },
+        error: (error) => {
+          setIsLoading(false);
+          if (error.status == 409) {
+            setIsRegistering(false);
+          }
+          return <b>{error.response?.data?.msg || 'Registration failed.'}</b>;
+        }
+      });
     } else {
       if (email === '' || password === '') {
-        setError("Please fill in all fields.");
+        toast.error("Please fill in all fields.")
         return;
       }
 
@@ -67,25 +79,38 @@ const AuthForm = () => {
         }
       };
 
-      axios.post('https://api.priyank.space/api/v1/client/login', {
+      const loginPromise = axios.post('https://api.priyank.space/api/v1/client/login', {
         email,
         password,
       }, config)
-        .then((res) => {
-          localStorage.setItem("token", res.data.token);
-          disptach(login(res.data.user))
+      // .then((res) => {
+      //   localStorage.setItem("token", res.data.token);
+      //   dispatch(login(res.data.user))
+      //   setIsLoading(false)
+      //   setMessage('Login successful! Redirecting to dashboard...');
+      //   navigate('/dashboard');
+      //   console.log(res);
+      // })
+      // .catch((error) => {
+      //   console.error('Registration error:', error);
+      //   setError(error.response.data.msg);
+      //   setIsLoading(false)
+      // });
+
+      toast.promise(loginPromise, {
+        loading: 'Logging in...',
+        success: (response) => {
+          localStorage.setItem("token", response.data.token);
+          dispatch(login(response.data.user));
           setIsLoading(false)
-          setMessage('Login successful! Redirecting to dashboard...');
           navigate('/dashboard');
-          console.log(res);
-        })
-        .catch((error) => {
-          console.error('Registration error:', error);
-          setError(error.response.data.msg);
+          return <b>Login successful!</b>;
+        },
+        error: (error) => {
           setIsLoading(false)
-        });
-      // Simulate a login success
-      console.log('Logging in with:', { email, password });
+          return <b>{error.response?.data?.msg || 'Login failed.'}</b>;
+        }
+      });
     }
   };
 
@@ -97,8 +122,6 @@ const AuthForm = () => {
           <h2 className="auth-title">
             {isRegistering ? 'Create Account' : 'Welcome Back'}
           </h2>
-          {error && <div className="error-message">{error}</div>}
-          {message && <div className="success-message">{message}</div>}
           <form onSubmit={handleSubmit}>
             {isRegistering && (
               <div className="form-group">
