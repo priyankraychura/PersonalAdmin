@@ -26,7 +26,7 @@ const Sidebar = () => {
     >
       <div className="sidebar-logo-container">
         <img
-          src="/profile.jpg"
+          src="/logo.svg"
           alt="Company Logo"
           className="sidebar-logo"
         />
